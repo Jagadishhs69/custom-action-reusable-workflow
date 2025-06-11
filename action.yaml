@@ -1,0 +1,13 @@
+name: 'Greet Action'
+description: 'Prints a personalized greeting and outputs a timestamp'
+inputs:
+  name:
+    description: 'Name to greet'
+    required: true
+outputs:
+  timestamp:
+    description: 'Current timestamp'
+    value: ${{ steps.greet.outputs.timestamp }}
+runs:
+  using: 'node16'
+  main: 'index.js'
