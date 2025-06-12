@@ -21,4 +21,4 @@ jobs:
           name: "Jagadish"
 
       - name: Log Timestamp Output
-        run: echo "Timestamp:${{ steps.greet.outputs.timestamp }}"
+        run: echo "Timestamp:" ${{ steps.greet.outputs.timestamp }}
