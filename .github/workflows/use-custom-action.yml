@@ -1,0 +1,24 @@
+name: "Use Custom Action"
+
+on:
+  push:
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies for custom action
+        run: |
+          cd custom-actions/greet-action
+          npm install
+
+      - name: Run Greet Action
+        uses: ./custom-actions/greet-action
+        with:
+          name: "Jagadish"
+
+      - name: Log Timestamp Output
+        run: echo "Timestamp:${{ steps.greet.outputs.timestamp }}"
