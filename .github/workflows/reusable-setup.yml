@@ -1,0 +1,27 @@
+name: "Reusable Node Setup"
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: true
+        type: string
+    outputs:
+      npm-cache-dir:
+        description: "NPM cache directory"
+        value: ${{ jobs.setup.outputs.cache-dir }}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      cache-dir: ${{ steps.cache-dir.outputs.path }}
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Get NPM cache directory
+        id: cache-dir
+        run: echo "::set-output name=path::$(npm config get cache)"
