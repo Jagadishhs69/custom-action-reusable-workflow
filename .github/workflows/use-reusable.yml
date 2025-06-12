@@ -1,0 +1,17 @@
+name: "Use Reusable Workflow"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  use-setup:
+    uses: ./.github/workflows/reusable-setup.yml
+    with:
+      node-version: "18"
+
+  show-output:
+    needs: use-setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display NPM Cache Dir
+        run: echo "NPM Cache Path:${{ needs.use-setup.outputs.npm-cache-dir }}"
