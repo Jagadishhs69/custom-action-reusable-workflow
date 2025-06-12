@@ -1,0 +1,19 @@
+name: Custom Action and Reusable Workflow
+on:
+  push:
+    branches:
+      - main
+jobs:
+  greet-and-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Custom Action
+        uses: ./.github/actions/greet
+        with:
+          name: Alice
+      - name: Call Reusable Workflow
+        uses: ./.github/workflows/setup-node.yml
+        with:
+          node-version: '18'
+      - name: Use Output
+        run: echo "Node modules path: ${{ needs.setup.outputs.node-modules-path }}"
