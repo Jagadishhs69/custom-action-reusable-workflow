@@ -1,0 +1,30 @@
+name: Setup Node.js
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: 'Node.js version'
+        required: true
+        type: string
+    outputs:
+      node-modules-path:
+        description: 'Path to node_modules'
+        value: ${{ jobs.setup.outputs.node-modules-path }}
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: 'npm'
+      - name: Install Dependencies
+        run: npm install
+      - name: Set Output
+        id: set-output
+        run: echo "node-modules-path=$(pwd)/node_modules" >> $GITHUB_OUTPUT
+    outputs:
+      node-modules-path: ${{ steps.set-output.outputs.node-modules-path }}
