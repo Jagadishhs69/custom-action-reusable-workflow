@@ -1,0 +1,12 @@
+name: "Greeting Action"
+description: "Prints a personalized greeting and outputs timestamp"
+inputs:
+  name:
+    description: "Name to greet"
+    required: true
+outputs:
+  timestamp:
+    description: "The current timestamp"
+runs:
+  using: "node16"
+  main: "index.js"
